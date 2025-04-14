@@ -1,19 +1,20 @@
-terraform {
-  required_providers{
+terraform { 
+  required_providers {
     aws = {
-      source = "hashicorp/aws"
-      version = "~> 5.0"
+      source  = "hashicorp/aws"
+      version = "5.61.0"
     }
   }
+  backend "s3" {
+    # Lembre de trocar o bucket para o seu, não pode ser o mesmo nome
+    bucket         = "bucket-para-salvar-o-estado"
+    # dynamodb_table = "terraform-locks"
+    key            = "terraform-test.tfstate"
+    region         = "us-east-1"
+    encrypt        = true  # Ativa a criptografia
+  }
 }
+
 provider "aws" {
   region = "us-east-1"
-}
-resource "aws_s3_bucket" "meu_bucket" {
-  bucket = "bucket-para-salvar-o-estado"
-
-  tags = {
-    Name        = "MyBucket"
-    Environment = "Dev"
-  }
 }

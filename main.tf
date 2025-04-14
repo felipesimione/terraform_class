@@ -9,7 +9,15 @@ terraform {
     # Lembre de trocar o bucket para o seu, não pode ser o mesmo nome
     bucket         = "bucket-para-salvar-o-estado"
     # dynamodb_table = "terraform-locks"
-    key            = "terraform-test.tfstate"
+    key            = "terraform.tfstate"
+    region         = "us-east-1"
+    encrypt        = true  # Ativa a criptografia
+  }
+  backend "s3" {
+    # Lembre de trocar o bucket para o seu, não pode ser o mesmo nome
+    bucket         = "bucket-para-salvar-o-estado"
+    # dynamodb_table = "terraform-locks"
+    key            = ".terraform.lock.hcl"
     region         = "us-east-1"
     encrypt        = true  # Ativa a criptografia
   }
